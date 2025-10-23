@@ -1,0 +1,297 @@
+Лекция 6
+Циклы в Python
+
+Цель лекции: Изучить решение циклической формы с помощью языка Python. Рассмотреть операторы цикла, их назначение и применение. Дать определение цикла.
+
+6.1 Операторы цикла
+
+Алгоритмы решения многих задач являются циклическими, т.е. для достижения результата определенная последовательность действий должна быть выполнена несколько раз. Циклом называется группа инструкций, повторяющихся многократно с разными данными.
+
+В Python для циклов применяются инструкции: for, while, а также специальные конструкции для работы с итерируемыми объектами.
+
+6.2 Цикл for
+
+Цикл for используется для итерации по последовательностям (списки, строки, кортежи, словари и т.д.).
+
+Синтаксис:
+```python
+for переменная in последовательность:
+    блок_инструкций
+```
+
+Пример 1. Вывод последовательности чисел.
+
+```python
+# Вывод чисел от 0 до 9
+for i in range(10):
+    print(f"i = {i}")
+
+# Вывод элементов списка
+fruits = ["яблоко", "банан", "апельсин"]
+for fruit in fruits:
+    print(fruit)
+```
+
+6.3 Функция range()
+
+Функция range() создает последовательность чисел:
+
+```python
+range(stop)                    # от 0 до stop-1
+range(start, stop)             # от start до stop-1
+range(start, stop, step)       # от start до stop-1 с шагом step
+```
+
+Примеры:
+```python
+# range(5) -> 0, 1, 2, 3, 4
+for i in range(5):
+    print(i)
+
+# range(2, 7) -> 2, 3, 4, 5, 6
+for i in range(2, 7):
+    print(i)
+
+# range(0, 10, 2) -> 0, 2, 4, 6, 8
+for i in range(0, 10, 2):
+    print(i)
+```
+
+6.4 Цикл while
+
+Цикл while повторяет блок инструкций, пока условие истинно.
+
+Синтаксис:
+```python
+while условие:
+    блок_инструкций
+```
+
+Пример 2. Вычисление значений функций.
+
+```python
+import math
+
+# Параметры
+a = 1.3
+b = 1.29
+tn = 0.1
+tk = 2.2
+h = 0.3
+
+print("Таблица расчета функции s")
+print()
+
+t = tn
+while t <= tk:
+    x = a * t
+    
+    if x < 1:
+        s = x + b
+    elif x == 1:
+        s = math.cos(x)
+    else:
+        s = math.exp(x) * math.cos(x)
+    
+    print(" *********************** ")
+    print(f" * x= {x:4.1f} * s= {s:6.3f} *")
+    
+    t += h
+```
+
+6.5 Вложенные циклы
+
+Циклы могут быть вложенными друг в друга.
+
+Пример 3. Таблица умножения.
+
+```python
+# Таблица умножения 5x5
+for i in range(1, 6):
+    for j in range(1, 6):
+        print(f"{i} x {j} = {i * j}", end="\t")
+    print()  # Переход на новую строку
+```
+
+6.6 Управление циклами
+
+6.6.1 break - прерывание цикла
+
+```python
+# Поиск первого четного числа
+numbers = [1, 3, 5, 8, 9, 12]
+for num in numbers:
+    if num % 2 == 0:
+        print(f"Первое четное число: {num}")
+        break
+```
+
+6.6.2 continue - пропуск итерации
+
+```python
+# Вывод только нечетных чисел
+for i in range(10):
+    if i % 2 == 0:
+        continue
+    print(f"Нечетное число: {i}")
+```
+
+6.6.3 else в циклах
+
+Блок else выполняется, если цикл завершился нормально (без break):
+
+```python
+# Поиск простого числа
+n = 17
+for i in range(2, n):
+    if n % i == 0:
+        print(f"{n} не является простым числом")
+        break
+else:
+    print(f"{n} - простое число")
+```
+
+6.7 Итерация по словарям
+
+```python
+person = {"имя": "Иван", "возраст": 25, "город": "Москва"}
+
+# Итерация по ключам
+for key in person:
+    print(f"{key}: {person[key]}")
+
+# Итерация по ключам и значениям
+for key, value in person.items():
+    print(f"{key}: {value}")
+
+# Итерация только по значениям
+for value in person.values():
+    print(value)
+```
+
+6.8 Итерация по строкам
+
+```python
+text = "Python"
+for char in text:
+    print(char)
+
+# Итерация с индексами
+for i, char in enumerate(text):
+    print(f"Индекс {i}: {char}")
+```
+
+6.9 Генераторы списков (List Comprehensions)
+
+```python
+# Создание списка квадратов
+squares = [x**2 for x in range(10)]
+print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# Создание списка четных чисел
+even_numbers = [x for x in range(20) if x % 2 == 0]
+print(even_numbers)  # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+# Создание словаря из списка
+words = ["hello", "world", "python"]
+word_lengths = {word: len(word) for word in words}
+print(word_lengths)  # {'hello': 5, 'world': 5, 'python': 6}
+```
+
+6.10 Циклы с условиями
+
+```python
+# Сумма чисел до ввода 0
+total = 0
+while True:
+    number = int(input("Введите число (0 для выхода): "))
+    if number == 0:
+        break
+    total += number
+print(f"Сумма: {total}")
+```
+
+6.11 Обработка исключений в циклах
+
+```python
+numbers = ["1", "2", "abc", "4", "5"]
+valid_numbers = []
+
+for num_str in numbers:
+    try:
+        num = int(num_str)
+        valid_numbers.append(num)
+    except ValueError:
+        print(f"'{num_str}' не является числом")
+
+print(f"Валидные числа: {valid_numbers}")
+```
+
+6.12 Практические примеры
+
+Пример 4. Поиск максимального элемента в списке.
+
+```python
+numbers = [3, 7, 2, 9, 1, 5]
+max_num = numbers[0]
+
+for num in numbers[1:]:
+    if num > max_num:
+        max_num = num
+
+print(f"Максимальное число: {max_num}")
+```
+
+Пример 5. Подсчет символов в строке.
+
+```python
+text = "Hello, World!"
+char_count = {}
+
+for char in text:
+    if char in char_count:
+        char_count[char] += 1
+    else:
+        char_count[char] = 1
+
+for char, count in char_count.items():
+    print(f"'{char}': {count}")
+```
+
+Пример 6. Числа Фибоначчи.
+
+```python
+n = 10
+fib = [0, 1]
+
+for i in range(2, n):
+    fib.append(fib[i-1] + fib[i-2])
+
+print(f"Первые {n} чисел Фибоначчи: {fib}")
+```
+
+6.13 Оптимизация циклов
+
+```python
+# Медленный способ
+result = []
+for i in range(1000):
+    if i % 2 == 0:
+        result.append(i**2)
+
+# Быстрый способ (генератор списка)
+result = [i**2 for i in range(1000) if i % 2 == 0]
+
+# Еще быстрее (генератор)
+result = (i**2 for i in range(1000) if i % 2 == 0)
+```
+
+Контрольные вопросы:
+1. В чем разница между циклами for и while?
+2. Как работает функция range()?
+3. Для чего используются break и continue?
+4. Когда выполняется блок else в циклах?
+5. Как итерироваться по словарям?
+6. Что такое генераторы списков?
+7. Как обработать исключения в циклах?
+8. Как оптимизировать производительность циклов?
